@@ -61,10 +61,6 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Configure Secrets
-        run: |
-          echo "OPENAI_API_KEY = '${{ secrets.OPENAI_API_KEY }}'" >> .env
-
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -72,4 +68,4 @@ jobs:
         with:
           app-name: 'duck-agent-app'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_37F54D61426C41008198010DE3D40422 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_323D40E42DDF4DA589DD99EF6F7788F1 }}
