@@ -61,6 +61,10 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+      - name: Configuration Secrets
+        run:
+          echo "OPENAPI_API_KEY = \"{{$ secrets.OPENAPI_API_KEY }}\"" >> .env
+
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
