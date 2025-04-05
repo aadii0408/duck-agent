@@ -61,6 +61,10 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
+      - name: Configure Secrets
+        run: |
+          echo "OPENAI_API_KEY = '${{ secrets.OPENAI_API_KEY }}'" >> .env
+
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
