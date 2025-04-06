@@ -174,6 +174,89 @@
 #     # clear_vector_store() #Uncomment this line to clear the vector store
 #     ingest_data()
 
+# import os
+# import shutil
+# import logging
+# from dotenv import load_dotenv
+# from langchain_community.document_loaders import UnstructuredURLLoader
+# from langchain.text_splitter import RecursiveCharacterTextSplitter
+# from langchain_community.vectorstores import FAISS
+# from langchain_openai import OpenAIEmbeddings
+
+# # Load API Key
+# load_dotenv()
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# if not OPENAI_API_KEY:
+#     raise ValueError("❌ OPENAI_API_KEY not set. Please add it to your .env file.")
+
+# # Setup logging
+# logging.basicConfig(
+#     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+# )
+
+# # Define URLs
+# urls = [
+#     "https://www.stevens.edu/about",
+#     "https://www.stevens.edu/academics",
+#     "https://www.stevens.edu/admissions",
+#     "https://www.stevens.edu/online-learning",
+#     "https://thestute.com/",
+#     "https://www.stevens.edu/public-events",
+#     "https://www.stevens.edu/about-stevens/campus-map",
+#     "https://www.stevens.edu/directory/graduate-academics/graduate-student-life-services",
+#     "https://www.stevens.edu/directory/international-student-and-scholar-services",
+#     "https://www.stevens.edu/page-basic/airport-pickup-service-for-new-graduate-students",
+#     "https://www.stevens.edu/maintain-your-f-1-status",
+#     "https://www.stevens.edu/travel-information",
+#     "https://www.stevens.edu/discover-stevens/news",
+#     "https://www.stevens.edu/grad-student-resources",
+#     "https://www.stevens.edu/graduate-corporate-education",
+# ]
+
+
+# def ingest_data():
+#     try:
+#         logging.info("🔄 Loading data from URLs...")
+#         loader = UnstructuredURLLoader(urls=urls)
+#         documents = loader.load()
+
+#         if not documents:
+#             raise Exception(
+#                 "No documents were loaded. Check the URLs or internet connection."
+#             )
+
+#         logging.info(f"✅ Loaded {len(documents)} documents.")
+
+#         splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=300)
+#         texts = splitter.split_documents(documents)
+#         logging.info(f"✅ Split into {len(texts)} chunks.")
+
+#         embeddings = OpenAIEmbeddings()
+#         db = FAISS.from_documents(texts, embeddings)
+#         db.save_local("faiss_index")
+#         logging.info("✅ FAISS vector store saved at 'faiss_index/'.")
+
+#     except Exception as e:
+#         logging.error(f"❌ Error during ingestion: {e}", exc_info=True)
+
+
+# def clear_vector_store(path="faiss_index"):
+#     try:
+#         shutil.rmtree(path)
+#         logging.info(f"✅ Cleared existing vector store at '{path}'.")
+#     except FileNotFoundError:
+#         logging.warning(f"⚠️ No vector store directory found at '{path}' to delete.")
+#     except Exception as e:
+#         logging.error(f"❌ Error deleting vector store: {e}")
+
+
+# if __name__ == "__main__":
+#     clear_vector_store()
+#     ingest_data()
+
+# Last Try---------------------------------------------------
+
 import os
 import shutil
 import logging
@@ -212,6 +295,39 @@ urls = [
     "https://www.stevens.edu/discover-stevens/news",
     "https://www.stevens.edu/grad-student-resources",
     "https://www.stevens.edu/graduate-corporate-education",
+    "https://www.stevens.edu/campus-life/residence-life",
+    "https://www.stevens.edu/campus-life/dining-services",
+    "https://www.stevens.edu/campus-life/health-wellness",
+    "https://www.stevens.edu/transportation-and-parking/stevens-shuttle",
+    "https://www.stevens.edu/transportation-and-parking/nj-transit",
+    "https://www.stevens.edu/page-basic/public-transportation",
+    "https://www.stevens.edu/campus-life/diversity-inclusion",
+    "https://www.stevens.edu/off-campus-employment/isss-f1-students/cpt-work-authorization",
+    "https://www.stevens.edu/cpt-frequently-asked-questions",
+    "https://www.stevens.edu/academics/graduate-study/academic-policies-and-procedures#policies-procedures-a-i",
+    "https://www.stevens.edu/academics/graduate-study/academic-policies-and-procedures#policies-procedures-j-r",
+    "https://www.stevens.edu/academics/graduate-study/academic-policies-and-procedures#policies-procedures-s-z",
+    "https://www.stevens.edu/academics/graduate-study/graduate-student-handbook",
+    "https://www.stevens.edu/admission-aid/undergraduate-admissions/new-students/health-and-immunization-requirements",
+    "https://www.stevens.edu/counseling-psychological-services",
+    "https://www.stevens.edu/apply-i20",
+    "https://www.stevens.edu/financial-documentation-requirements-newly-admitted"
+    "https://www.stevens.edu/cpt-frequently-asked-questions",
+    "https://www.stevens.edu/off-campus-employment/isss-f1-students/cpt-work-authorization",
+    "https://www.stevens.edu/information-for-parents-and-families",
+    "https://www.stevens.edu/policies-library",
+    "https://www.stevens.edu/academics/stevensonline/stevens-online",
+    "https://www.stevens.edu/discover-stevens/leadership-and-vision",
+    "https://www.stevens.edu/discover-stevens/leadership-and-vision/the-presidents-leadership-council",
+    "https://www.stevens.edu/discover-stevens/leadership-and-vision/office-president",
+    "https://www.stevens.edu/discover-stevens/leadership-and-vision/board-of-trustees",
+    "https://www.stevens.edu/office-of-the-provost",
+    "https://www.stevens.edu/admission-aid/graduate-admissions/chat-with-a-student",
+    "https://www.stevens.edu/academics/graduate-study/graduate-funding/assistantships-and-fellowships",
+    "https://www.stevens.edu/admission-aid/graduate-admissions/graduate-programs/graduate-degrees-and-programs",
+    "https://www.stevens.edu/admission-aid/tuition-financial-aid/graduate-costs-and-funding",
+    "https://www.stevens.edu/tuition-fees-and-costs",
+    "https://www.stevens.edu/admissions-aid/graduate-admissions/acceptance-categories",
 ]
 
 
